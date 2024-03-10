@@ -1,0 +1,11 @@
+.country{
+    border: 2px solid #654321;
+    margin: 15px;
+    padding: 15px;
+    border-radius: 15px;
+}
+.countries{
+    border: 2px solid #098765;
+    border-radius: 20px;
+    padding: 15px;
+}
