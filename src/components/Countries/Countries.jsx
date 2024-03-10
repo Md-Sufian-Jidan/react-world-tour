@@ -5,24 +5,40 @@ import '../Countries/Countries'
 import '../Countries/countries.css'
 // import Country from "../Country/Country";
 // import '../Country/Country'
-
 const Countries = () => {
-    const [countries,setCountries] = useState([]);
+    const [countries, setCountries] = useState([]);
+    const [visitedCountries, setVisitedCountries] = useState([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         fetch(`https://restcountries.com/v3.1/all`)
-        .then((res) => res.json())
-        .then((data) => {setCountries(data)})
-    },[]);
+            .then((res) => res.json())
+            .then((data) => { setCountries(data) })
+    }, []);
 
+    const handleVisitedCountry = (country) => {
+        console.log('Add this to your visited country');
+        // console.log(country);
+        const newVisitedCountries = [...visitedCountries, country];
+        setVisitedCountries(newVisitedCountries);
+    }
 
     return (
-        
-        <div className="countries country-container">
-        <h3>Countries : {countries.length}</h3>
-            {
-                countries.map((country) => <SecondCountry key={country.cca3} country={country}></SecondCountry>)
-            }
+
+        <div className="countries">
+            <h3>Countries : {countries.length}</h3>
+            <div>
+                <h5>Visited Countries : {visitedCountries.length}</h5>
+                <ul>
+                    {
+                        visitedCountries.map(country => <li key={country.cca3}>{country.name.common}</li>)
+                    }
+                </ul>
+            </div>
+            <div className="country-container">
+                {
+                    countries.map((country) => <SecondCountry key={country.cca3}handleVisitedCountry={handleVisitedCountry} country={country}></SecondCountry>)
+                }
+            </div>
         </div>
         // <div className="countries">
         //     <h3>Countries : {countries.length}</h3>
